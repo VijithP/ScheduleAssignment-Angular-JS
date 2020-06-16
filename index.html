@@ -1,0 +1,366 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Shift Assignment</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/jquery-ui.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/StyleSchedule.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery-ui.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/angular.min.js"></script>
+    <!--# Site developed by: vijith.pv, email:vijith5430@gmail.com -->
+
+</head>
+
+<body ng-app="myApp" ng-controller="shiftAssignCtrl">
+
+    <div class="row  clsDivHeader">
+        <div class="col-lg-12 col-xs-12">
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Shift Assignment</a>
+                </div>
+
+
+            </nav>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-lg-12 page-breadcrumbs">
+            <a href="/Shift.html" class="btn btn-sm btn-outline-primary" style="margin-left: 30px;">Shift</a>
+            <a href="/index.html" class="btn btn-sm btn-outline-primary active">Assign Shift</a>
+
+        </div>
+
+        <div class="col-lg-12 col-lg-12 page-header" style="display: block">
+            Assign Shift
+            <a href="#" style="float: right;"><span class="glyphicon glyphicon-chevron-down"></span> </a>
+
+            
+
+            <select id="ddlIdEmployee" multiple>
+                <option value="">Select Employee</option>
+                <option  ng-repeat="itemRow in employeeDetails" value="{{ itemRow.EmployeeID}} "  > {{itemRow.Name }} </option>
+
+            </select>
+
+            <select id="ddlIdManager">
+                <option value="">Select Manager</option>
+                <option  value="Ford;Francis">Ford;Francis</option>
+            </select>
+
+
+
+        </div>
+
+    </div>
+
+
+
+    <br>
+
+
+    <div class="row" >
+        <div class="col-lg-2">
+
+            <p style="margin-left: 30px; margin-top: 10px;">Month:
+                <br>
+                <select id="dllIdMonthMain" class="form-control form-control-sm" ng-model="SelectMonth"
+                    ng-change="SelectMonthSchedule();">
+                    <option value="">Select Month</option>
+                    <option value="0-2020">Jan 2020</option>
+                    <option value="1-2020">Feb 2020</option>
+                    <option value="2-2020">Mar 2020</option>
+                    <option value="3-2020">Apr 2020</option>
+                    <option value="4-2020">May 2020</option>
+                    <option value="5-2020" selected>Jun 2020</option>
+                </select>
+            </p>
+
+
+            <p style="margin-left: 30px;display: none;">Date: <br>
+
+                <input type="text" id="datepicker" class="clsDivDateSelector" onchange="SelectMonth();">
+            </p>
+
+
+        </div>
+        <div class="col-lg-2">
+
+
+            <div id="DdlShiftSelect" class="btn-group">
+                <button id="btnIdShiftSelect" type="button" class="btn btn-default btn-sm dropdown-toggle"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Select Shift
+                </button>
+                <br>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item clsShiftItem" data-shiftId="Shift1" href="#">6AM to 3PM - Morning Shift </a>
+                    <br><a class="dropdown-item clsShiftItem" data-shiftId="Shift2" href="#">7AM to 4PM - Morning Shift
+                    </a>
+                    <br><a class="dropdown-item clsShiftItem" data-shiftId="Shift3" href="#">2PM to 11PM - Afternoon
+                        Shift </a>
+                    <br><a class="dropdown-item clsShiftItem" data-shiftId="Shift4" href="#">6PM to 3AM - Night Shift
+                        1</a>
+                    <br> <a class="dropdown-item clsShiftItem" data-shiftId="Shift5" href="#">10PM to 7AM - Night Shift
+                        2</a>
+                    <br><a class="dropdown-item clsShiftItem" data-shiftId="Shift6" href="#">Off Day </a>
+
+
+                </div>
+            </div>
+
+            <br>
+            <div id="DivIdSelectedShift">
+
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-offset-lg-1 col-md-6 col-sm-12">
+            <table id="tblIdShiftDetails">
+                <tr>
+                    <td>
+                        <div class="clsShiftColor bgColorShift1"></div>
+                        <div class="clsShiftColorText"> 6AM to 3PM - Morning Shift </div>
+                    </td>
+                    <td>
+                        <div class="clsShiftColor bgColorShift2"></div>
+                        <div class="clsShiftColorText">7AM to 4PM - Morning Shift</div>
+
+                    </td>
+                    <td>
+                        <div class="clsShiftColor bgColorShift3"></div>
+                        <div class="clsShiftColorText"> 2PM to 11PM - Afternoon Shift</div>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="clsShiftColor bgColorShift4"></div>
+                        <div class="clsShiftColorText"> 6PM to 3AM - Night Shift 1 </div>
+                    </td>
+                    <td>
+                        <div class="clsShiftColor bgColorShift5"></div>
+                        <div class="clsShiftColorText"> 10PM to 7AM - Night Shift 2</div>
+
+                    </td>
+                    <td>
+                        <div class="clsShiftColor bgColorShift6"></div>
+                        <div class="clsShiftColorText"> Off Day</div>
+
+                    </td>
+                </tr>
+
+
+            </table>
+
+        </div>
+
+
+
+
+
+        <div id="DivIdShiftDetails" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+            <table id="TblIdShift">
+                <thead>
+                    <tr>
+                        <th colspan="{{DayOfMonths}}">{{DateDetails}}</th>
+                    </tr>
+                    <tr>
+                        <th>Name \ Date </th>
+                        <th ng-repeat="itemMonth in monthDaysLoading">
+                            {{itemMonth.DateNo}}
+                            <br>
+
+                            <div class="clsWeekDays" ng-switch="{{itemMonth.Day}}">
+                                <div class="sun" ng-switch-when="0">S </div>
+                                <div class="oth" ng-switch-when="1">M</div>
+                                <div class="oth" ng-switch-when="2">T </div>
+                                <div class="oth" ng-switch-when="3">W</div>
+                                <div class="oth" ng-switch-when="4">T </div>
+                                <div class="oth" ng-switch-when="5">F</div>
+                                <div class="sat" ng-switch-when="6">S </div>
+                            </div>
+
+                        </th>
+                    </tr>
+
+                </thead>
+                <tbody>
+
+
+
+                    <tr ng-repeat="item in employeeDetails">
+
+                        <td class="clsNameRow"> {{ item.EmployeeID}} - {{item.Name }}</td>
+                        <td ng-repeat="itemRow in EmployeeShiftDetails" ng-if="item.EmployeeID==itemRow.EmployeeID">
+
+                            <!-- <td ng-if="item.EmployeeID==itemRow.EmployeeID"> -->
+                            {{ itemRow.ShiftID }}
+                            <!-- </td>                     -->
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+
+        <div class=" col-lg-12 col-sm-12 " style="text-align:right" ;">
+            <button type="button" class="btn btn-sm btn-outline-primary">Cancel</button>
+            <button type="button" class="btn btn-sm btn-outline-primary">Save</button>
+
+        </div>
+
+        <br>
+        <br>
+        <div class="col-lg-12 col-lg-12 page-header" style="margin-top: 20px; display: none;" >
+            Assign Shift Details
+
+            <a href="#" style="display: none;"><span class="glyphicon glyphicon-chevron-down"></span> </a>
+
+
+            <select id="dllIdEmployee" style="float: right;" ng-model="selectedOption" ng-change="ChangeEmployee()">
+                <option value="{{itemRow.EmployeeID}}" ng-repeat="itemRow in employeeDetails">
+                    {{itemRow.Name }}
+                </option>
+            </select>
+
+            <select id="dllIdMonth" style="float: right;">
+                <option value="" Select Month</option>
+                <option value="Jan2020">Jan 2020</option>
+                <option value="Feb2020">Feb 2020</option>
+                <option value="Mar2020">Mar 2020</option>
+                <option value="Apr2020">Apr 2020</option>
+                <option value="May2020">May 2020</option>
+                <option value="Jun2020" selected>Jun 2020</option>
+            </select>
+
+        </div>
+
+
+        <div class="col-lg-12  col-sm-12 col-xs-12" style="display: none;">
+
+
+            <div style="text-align:center;" class="container">
+                <table id="TblIdShiftMaster">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Shift Name</th>
+                            <th>Shift Timing</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="itemRow in EmployeeShiftDetails" ng-if="selectedOption==itemRow.EmployeeID">
+                            <td> {{ itemRow.EmployeeID}} </td>
+                            <td> {{itemRow.Name }}</td>
+                            <td> {{itemRow.DateValue }}</td>
+                            <td>{{itemRow.ShiftID }}</td>
+                            <td></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <br>
+                <br>
+            </div>
+
+
+
+        </div>
+
+
+<!--Shift Resources-->
+
+
+<div class="col-lg-12 col-lg-12 page-header" style="margin-top: 20px;" >
+    Shift Resources   
+     <input type="text" name="SearchWithName" style="float: right; height: 20px;;" placeholder="Search Text"> 
+ 
+</div>
+
+
+<div class="col-lg-12  col-sm-12 col-xs-12" >
+
+
+    <div style="text-align:center;" class="container">
+        <table id="TblIdShiftResources">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Manager Name</th>
+                    <th>Add to Shift Resources</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="itemRow in employeeDetails" >
+                    <td> {{ itemRow.EmployeeID}} </td>
+                    <td> {{itemRow.Name }}</td>
+                    <td> {{itemRow.Email}}</td>
+                    <td>{{itemRow.Manager }}</td>
+                    <td>
+                        <input type="checkbox"> 
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <br>
+        <br>
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+    </div>
+
+
+
+    <br>
+
+
+
+
+
+
+    <div class="row clsFooterDiv" style="display: none;">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 2020 @ techProApps</div>
+    </div>
+
+
+
+
+
+
+    <script src="/js/DataSchedule.json"></script>
+    <script src="/js/ScriptSchedule.js"></script>
+
+
+</body>
+
+</html>

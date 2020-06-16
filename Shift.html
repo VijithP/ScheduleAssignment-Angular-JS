@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Shift Assignment</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/jquery-ui.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/StyleSchedule.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+
+
+
+    <!--# Site developed by: vijith.pv, email:vijith5430@gmail.com -->
+
+</head>
+
+<body>
+
+    <div class="row  clsDivHeader">
+        <div class="col-lg-12 col-xs-12">
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Shift Assignment</a>
+                </div>
+
+
+            </nav>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-lg-12 page-breadcrumbs">
+            <a href="/Shift.html" class="btn btn-sm btn-outline-primary active" style="margin-left: 30px;">Shift</a>
+            <a href="/index.html" class="btn btn-sm btn-outline-primary ">Assign Shift</a>
+
+        </div>
+
+    </div>
+
+
+    <br>
+
+    <div class="container">
+
+        <div class="row" ng-app="myApp" ng-controller="shiftCtrl">
+            <div class="col-lg-12 col-md-12 col-xs-12">
+                <button class="btn btn-sm btn-outline-primary " data-toggle="modal"
+                    data-target="#exampleModalCenter">Add</button>
+
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-xs-12">
+
+
+                <div style="text-align:center;">
+                    <table id="TblIdShiftMaster">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Color</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="item in shiftList">
+
+                                <td>{{item.name}}</td>
+                                <td>{{item.from}}</td>
+                                <td>{{item.to}}</td>
+                                <td>{{item.color}}</td>
+                                <td>
+                                    <input type="button" class="btn btn-sm" data-ng-click="delete(item)" value="Edit">
+
+                                    </input>
+
+                                    <input type="button" class="btn btn-sm" data-ng-click="delete(item)"
+                                        value="Delete" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Add Shift</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table id="tblAddShift">
+                                <tbody>
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>
+                                            <input type="text" id="Name" class="form-control form-control-sm">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>From</td>
+                                        <td>
+                                            <input type="text" id="From" class="form-control form-control-sm">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>To</td>
+                                        <td>
+                                            <input type="text" id="To" class="form-control form-control-sm">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Color</td>
+                                        <td>
+                                            <select class="form-control form-control-sm">
+                                                <option>
+                                                    <div class="clsShiftColor bgColorShift1"></div>                                                  
+                                                    Color 1
+                                                </option>
+                                                <option>Color 2</option>
+                                                <option>Color 3</option>
+                                            </select>
+
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+
+
+
+
+    <br>
+
+
+
+
+
+
+    <div class="row clsFooterDiv">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">2020 @ techProApps</div>
+    </div>
+
+
+
+
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery-ui.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/angular.min.js"></script>
+    <script src="/js/DataSchedule.json"></script>
+    <script src="/js/ScriptShift.js"></script>
+
+
+</body>
+
+</html>
